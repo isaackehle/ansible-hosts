@@ -1,5 +1,33 @@
 ---
 
-  - name: Copying /etc/hosts file template
+#  - debug: "msg='is_local_host: {{ is_local_host }}'"
+
+  - name: Create the block
+    set_fact:
+      block_data: "{{ block_data }} + ['{{ hostvars[ item ].ip_address }} {{ item }} {{ hostvars[ item ].server_fqdn }}']"
+    with_items:
+      "{{ groups.all }}"
+    when: hostvars[ item ].ip_address is defined
+#  - debug: "msg='block_data: {{ block_data }}'"
+
+  - set_fact:
+      block_data_str: "{{ block_data | join('\n') }}"
+
+  - debug: "msg='block_data_str: {{ block_data_str }}'"
+
+  - name: ensure the block exists
     become: true
-    template: src=../templates/hosts.j2 dest=/etc/hosts owner=root group=root mode="u=rw,g=r,o=r"
+    blockinfile:
+      dest: /etc/hosts
+      block: "{{ block_data_str }}"
+      insertafter: EOF
+    when: is_local_host|bool == false
+
+  - name: ensure the block exists
+    become: true
+    local_action:
+      module: blockinfile
+      dest: /etc/hosts
+      block: "{{ block_data_str }}"
+      insertafter: EOF
+    when: is_local_host|bool == true
