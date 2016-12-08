@@ -1,0 +1,17 @@
+---
+
+- name: ensure the block exists
+  become: true
+  blockinfile:
+    dest: /etc/hosts
+    block: "{{ b1 | join('\n') }}"
+    insertafter: EOF
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - HOSTS"
+
+- lineinfile:
+    dest: /etc/hosts
+    regexp: '^127\.0\.0\.1'
+    line: '127.0.0.1 {{ inventory_hostname }} {{ server_fqdn }}'
+    owner: root
+    group: root
+    mode: 0644
