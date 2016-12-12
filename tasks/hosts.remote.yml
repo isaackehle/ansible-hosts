@@ -1,6 +1,6 @@
 ---
 
-- name: ensure the block exists
+- name: ensure the hosts block exists in /etc/hosts
   become: true
   blockinfile:
     dest: /etc/hosts
@@ -8,10 +8,12 @@
     insertafter: EOF
     marker: "# {mark} ANSIBLE MANAGED BLOCK - HOSTS"
 
-- lineinfile:
+- name: ensure hostname is in /etc/hosts
+  become: true
+  lineinfile:
     dest: /etc/hosts
     regexp: '^127\.0\.0\.1'
-    line: '127.0.0.1 {{ inventory_hostname }} {{ server_fqdn }}'
+    line: '127.0.0.1 localhost {{ inventory_hostname }} {{ server_fqdn }}'
     owner: root
     group: root
     mode: 0644
