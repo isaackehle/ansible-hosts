@@ -1,34 +1,24 @@
 ---
 
-#  - debug: "msg='is_local_host: {{ is_local_host }}'"
+#- debug: "msg='is_local_host: {{ is_local_host }}'"
+- debug: var=is_local_host
 
-  - set_fact: 
-      b1: []
+- set_fact:
+    incl_type: "local"
+  when: is_local_host == true
 
-  - name: Create the block
-    set_fact:
-      b1: "{{ b1 }} + ['{{ hostvars[ item ].ip_address }} {{ item }} {{ hostvars[ item ].server_fqdn }}']"
-    with_items:
-      "{{ groups.all }}"
-    when: hostvars[ item ].ip_address is defined
+- debug: var=incl_type
 
-#  - debug: "msg='b1: {{ b1 }}'"
+- set_fact:
+    b1: []
 
-  - name: ensure the block exists
-    become: true
-    blockinfile:
-      dest: /etc/hosts
-      block: "{{ b1 | join('\n') }}"
-      insertafter: EOF
-      marker: "# {mark} ANSIBLE MANAGED BLOCK - HOSTS"
-    when: is_local_host|bool == false
+- name: Create the block
+  set_fact:
+    b1: "{{ b1 }} + ['{{ hostvars[ item ].ip_address }} {{ item }} {{ hostvars[ item ].server_fqdn }}']"
+  with_items:
+    "{{ groups.all }}"
+  when: hostvars[ item ].ip_address is defined
 
-  - name: ensure the block exists
-    become: true
-    local_action:
-      module: blockinfile
-      dest: /etc/hosts
-      block: "{{ b1 | join('\n') }}"
-      insertafter: EOF
-      marker: "# {mark} ANSIBLE MANAGED BLOCK - HOSTS"
-    when: is_local_host|bool == true
+#- debug: "msg='b1: {{ b1 }}'"
+
+- include: ./hosts.{{ incl_type }}.yml
