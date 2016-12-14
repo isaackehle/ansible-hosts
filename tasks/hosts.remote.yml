@@ -1,5 +1,11 @@
 ---
 
+- command: date
+  register: date_cmd
+
+- set_fact:
+    b1: "['# Updated at {{ date_cmd.stdout }}', ''] + {{ b1 }}"
+
 - name: ensure the hosts block exists in /etc/hosts (remote)
   become: true
   blockinfile:
