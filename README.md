@@ -15,7 +15,7 @@ ansible_host: localhost or machine short hostname
 
 ## Examples
 
-```YAML
+```yaml
  - hosts: all
    gather_facts: "{{ansible_host != 'localhost'}}"
    roles:
