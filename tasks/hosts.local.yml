@@ -1,5 +1,12 @@
 ---
 
+- command: date
+  connection: local
+  register: date_cmd
+
+- set_fact:
+    b1: "['# Updated at {{ date_cmd.stdout }}', ''] + {{ b1 }}"
+
 - name: ensure the hosts block exists in /etc/hosts (local)
   become: true
   connection: local
@@ -10,6 +17,7 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK - HOSTS"
 
 - name: ensure hostname is in /etc/hosts (local)
+  become: true
   connection: local
   lineinfile:
     dest: /etc/hosts
