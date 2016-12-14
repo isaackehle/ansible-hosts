@@ -1,6 +1,6 @@
 ---
 
-- name: ensure the hosts block exists in /etc/hosts
+- name: ensure the hosts block exists in /etc/hosts (remote)
   become: true
   blockinfile:
     dest: /etc/hosts
@@ -8,7 +8,7 @@
     insertafter: EOF
     marker: "# {mark} ANSIBLE MANAGED BLOCK - HOSTS"
 
-- name: ensure hostname is in /etc/hosts
+- name: ensure hostname is in /etc/hosts (remote)
   become: true
   lineinfile:
     dest: /etc/hosts

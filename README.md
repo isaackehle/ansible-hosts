@@ -10,15 +10,14 @@ Thus, add the fqdn and ip address to the hosts file.
 
 ## Variables
 ```yaml
-is_local_host: true   # set when using a local machine, not a remote server
+ansible_host: localhost or machine short hostname
 ```
 
 ## Examples
 
 ```YAML
- # is_local_host can be saved in the host file defintions, or as extra vars
  - hosts: all
-   gather_facts: "{{is_local_host is defined and is_local_host == true}}"
+   gather_facts: "{{ansible_host != 'localhost'}}"
    roles:
      - pgkehle.hosts
 ```

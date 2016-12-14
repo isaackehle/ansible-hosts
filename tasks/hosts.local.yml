@@ -1,20 +1,17 @@
 ---
 
-- name: ensure the block exists
+- name: ensure the hosts block exists in /etc/hosts (local)
   become: true
-  local_action:
-    module: blockinfile
+  connection: local
+  blockinfile:
     dest: /etc/hosts
     block: "{{ b1 | join('\n') }}"
     insertafter: EOF
     marker: "# {mark} ANSIBLE MANAGED BLOCK - HOSTS"
-  when: is_local_host|bool == true
 
-- debug: var=inventory_hostname
-- debug: var=server_fqdn
-
-- local_action:
-    module: lineinfile
+- name: ensure hostname is in /etc/hosts (local)
+  connection: local
+  lineinfile:
     dest: /etc/hosts
     regexp: '^127\.0\.0\.1'
     line: '127.0.0.1 localhost {{ inventory_hostname }} {{ server_fqdn }}'

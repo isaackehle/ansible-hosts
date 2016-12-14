@@ -1,10 +1,7 @@
 ---
-
 - set_fact:
     incl_type: "local"
-  when: is_local_host|bool == true
-
-- debug: var=incl_type
+  when: ansible_host == 'localhost'
 
 - set_fact:
     b1: []
@@ -16,6 +13,4 @@
     "{{ groups.all }}"
   when: hostvars[ item ].ip_address is defined
 
-#- debug: "msg='b1: {{ b1 }}'"
-
-- include: ./hosts.{{ incl_type }}.yml
+- include: hosts.{{ incl_type }}.yml
