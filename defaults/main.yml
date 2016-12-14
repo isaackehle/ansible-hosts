@@ -1,4 +1,3 @@
 ---
 
-  is_local_host:  false
   incl_type:      "remote"
