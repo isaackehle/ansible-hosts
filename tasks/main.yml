@@ -1,11 +1,8 @@
 ---
 
-#- debug: "msg='is_local_host: {{ is_local_host }}'"
-- debug: var=is_local_host
-
 - set_fact:
     incl_type: "local"
-  when: is_local_host == true
+  when: is_local_host|bool == true
 
 - debug: var=incl_type
 
