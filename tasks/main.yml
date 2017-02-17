@@ -5,6 +5,7 @@
 
 - set_fact:
     b1: []
+  run_once: true
 
 - name: Create the block
   set_fact:
@@ -12,5 +13,6 @@
   with_items:
     "{{ groups.all }}"
   when: hostvars[ item ].ip_address is defined
+  run_once: true
 
 - include: hosts.{{ incl_type }}.yml
