@@ -1,4 +1,4 @@
-# Ansible: hosts
+# Ansible Role - hosts
 
 Update hosts file with a list of hosts
 
@@ -34,6 +34,6 @@ Paul Kehle
 ## For local development testing
 
 ```bash
-rsync -av ~/code/ansible-hosts/* ~/.ansible/roles/pgkehle.hosts
+rsync -av --delete ~/code/ansible-hosts/* ~/.ansible/roles/pgkehle.hosts
 ```
 

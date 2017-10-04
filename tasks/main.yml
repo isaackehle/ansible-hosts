@@ -15,4 +15,4 @@
   when: hostvars[ item ].ip_address is defined
   run_once: true
 
-- include: hosts.{{ incl_type }}.yml
+- include_tasks: hosts.{{ incl_type }}.yml
