@@ -3,16 +3,20 @@
     incl_type: "local"
   when: ansible_host == 'localhost'
 
-- set_fact:
-    b1: []
-  run_once: true
-
-- name: Create the block
-  set_fact:
-    b1: "{{ b1 }} + ['{{ hostvars[ item ].ip_address }} {{ item }} {{ hostvars[ item ].server_fqdn }}']"
+- name: set fact
+  set_fact: foo_item="{{ hostvars[ item ].ip_address }} {{ item }} {{ hostvars[ item ].server_fqdn }}"
   with_items:
     "{{ groups.all }}"
   when: hostvars[ item ].ip_address is defined
+  register: foo_result
   run_once: true
+
+#- debug: var=foo_result
+
+
+- name: make a list
+  set_fact: b1="{{ foo_result.results | selectattr('ansible_facts', 'defined') | selectattr('ansible_facts.foo_item', 'defined')  | map(attribute='ansible_facts.foo_item') | list }}"
+
+#- debug: var=b1
 
 - include_tasks: hosts.{{ incl_type }}.yml
