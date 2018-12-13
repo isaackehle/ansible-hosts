@@ -4,18 +4,17 @@
   when: ansible_host == 'localhost'
 
 - name: set fact
-  set_fact: foo_item="{{ hostvars[ item ].ip_address }} {{ item }} {{ hostvars[ item ].server_fqdn }}"
+  set_fact: address_list="{{ hostvars[ item ].ip_address }} {{ item }} {{ hostvars[ item ].server_fqdn }}"
   with_items:
     "{{ groups.all }}"
-  when: hostvars[ item ].ip_address is defined
+  when: hostvars[ item ].ip_address is defined and (hostvars[ item ].include_in_hosts is undefined or hostvars[ item ].include_in_hosts == true)
   register: foo_result
   run_once: true
 
 #- debug: var=foo_result
 
-
 - name: make a list
-  set_fact: b1="{{ foo_result.results | selectattr('ansible_facts', 'defined') | selectattr('ansible_facts.foo_item', 'defined')  | map(attribute='ansible_facts.foo_item') | list }}"
+  set_fact: b1="{{ foo_result.results | selectattr('ansible_facts', 'defined') | selectattr('ansible_facts.address_list', 'defined')  | map(attribute='ansible_facts.address_list') | list }}"
 
 #- debug: var=b1
 
