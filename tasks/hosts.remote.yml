@@ -1,21 +1,22 @@
 ---
 
-- command: date
+- name: Register Date
+  command: date
   register: date_cmd
 
-- set_fact:
+- name: Init block with date
+  set_fact:
     b1: "['# Updated at {{ date_cmd.stdout }}', ''] + {{ b1 }}"
 
-- name: ensure the hosts block exists in /etc/hosts (remote)
-  become: true
+- name: Ensure the hosts block exists in /etc/hosts (remote)
   blockinfile:
     dest: /etc/hosts
     block: "{{ b1 | join('\n') }}"
     insertafter: EOF
     marker: "# {mark} ANSIBLE MANAGED BLOCK - HOSTS"
-
-- name: ensure hostname is in /etc/hosts (remote)
   become: true
+
+- name: Ensure hostname is in /etc/hosts (remote)
   lineinfile:
     dest: /etc/hosts
     regexp: '^127\.0\.0\.1'
@@ -23,3 +24,4 @@
     owner: root
     group: root
     mode: 0644
+  become: true

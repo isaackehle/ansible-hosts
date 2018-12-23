@@ -1,6 +1,5 @@
 ---
-- set_fact:
-    incl_type: "local"
+- set_fact: incl_type=local
   when: ansible_host == 'localhost'
 
 - name: set fact
@@ -14,11 +13,7 @@
   register: foo_result
   run_once: true
 
-#- debug: var=foo_result
-
 - name: make a list
   set_fact: b1="{{ foo_result.results | selectattr('ansible_facts', 'defined') | selectattr('ansible_facts.address_list', 'defined')  | map(attribute='ansible_facts.address_list') | list }}"
-
-#- debug: var=b1
 
 - include_tasks: hosts.{{ incl_type }}.yml
