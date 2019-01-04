@@ -9,6 +9,7 @@ When it is set, this assumes that the ip address is hard coded, thus not availab
 Thus, add the fqdn and ip address to the hosts file.
 
 ## Variables
+
 ```yaml
 ansible_host: localhost or machine short hostname
 ```
@@ -17,7 +18,7 @@ ansible_host: localhost or machine short hostname
 
 ```yaml
  - hosts: all
-   gather_facts: "{{ansible_host != 'localhost'}}"
+   gather_facts: "{{ ansible_host != 'localhost' }}"
    roles:
      - pgkehle.hosts
 ```
@@ -30,5 +31,3 @@ MIT
 
 Paul Kehle  
 @pgkehle ([twitter](https://twitter.com/pgkehle), [github](https://github.com/pgkehle), [linkedin](https://www.linkedin.com/in/pgkehle))
-
-
