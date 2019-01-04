@@ -11,14 +11,14 @@ Thus, add the fqdn and ip address to the hosts file.
 ## Variables
 
 ```yaml
-ansible_host: localhost or machine short hostname
+inventory_hostname: localhost or machine short hostname
 ```
 
 ## Examples
 
 ```yaml
  - hosts: all
-   gather_facts: "{{ ansible_host != 'localhost' }}"
+   gather_facts: "{{ inventory_hostname != 'localhost' }}"
    roles:
      - pgkehle.hosts
 ```

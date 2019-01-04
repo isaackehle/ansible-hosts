@@ -2,7 +2,7 @@
 - name: Set local include when local
   set_fact:
     incl_type: local
-  when: ansible_host == 'localhost'
+  when: inventory_hostname == 'localhost'
 
 - name: Set address list
   set_fact: 
