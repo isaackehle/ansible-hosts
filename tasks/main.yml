@@ -11,7 +11,7 @@
   when: 
     - hostvars[ item ].network is defined
     - hostvars[ item ].network.ip is defined
-    - (hostvars[ item ].include_in_hosts is undefined or hostvars[ item ].include_in_hosts == true)
+    - (hostvars[ item ].include_in_hosts is undefined or hostvars[ item ].include_in_hosts)
   register: r
   run_once: true
 
