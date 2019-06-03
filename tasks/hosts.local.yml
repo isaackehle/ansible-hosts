@@ -1,5 +1,4 @@
 ---
-
 - name: Register Date
   command: date
   connection: local
@@ -23,6 +22,5 @@
   lineinfile:
     dest: /etc/hosts
     regexp: '^127\.0\.0\.1'
-    line: '127.0.0.1 localhost'
-    # line: '127.0.0.1 localhost {{ inventory_hostname }} {{ server_fqdn }}'
+    line: "127.0.0.1 localhost"
   become: true
