@@ -1,7 +1,7 @@
 ---
 - name: Register Date
   command: date
-  connection: local
+  delegate_to: localhost
   register: date_cmd
 
 - name: Init block with date
@@ -9,7 +9,7 @@
     b1: "['# Updated at {{ date_cmd.stdout }}', ''] + {{ b1 }}"
 
 - name: Ensure the hosts block exists in /etc/hosts (local)
-  connection: local
+  delegate_to: localhost
   blockinfile:
     dest: /etc/hosts
     block: "{{ b1 | join('\n') }}"
@@ -18,7 +18,7 @@
   become: true
 
 - name: Ensure hostname is in /etc/hosts (local)
-  connection: local
+  delegate_to: localhost
   lineinfile:
     dest: /etc/hosts
     regexp: '^127\.0\.0\.1'
