@@ -6,7 +6,7 @@
 
 - name: Set address list
   set_fact:
-    address_list: "{{ hostvars[ item ].network.ip }} {{ item }} {{ hostvars[ item ].server_fqdn }}"
+    address_list: "{{ hostvars[ item ].network.ip }} {{ item }} {{ hostvars[ item ].fqdn }}"
   with_items: "{{ groups.all }}"
   when:
     - hostvars[ item ].network is defined

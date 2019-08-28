@@ -19,7 +19,7 @@
   lineinfile:
     dest: /etc/hosts
     regexp: '^127\.0\.0\.1'
-    line: "127.0.0.1 localhost {{ inventory_hostname }} {{ server_fqdn }}"
+    line: "127.0.0.1 localhost {{ inventory_hostname }} {{ fqdn }}"
     owner: root
     group: root
     mode: 0644
