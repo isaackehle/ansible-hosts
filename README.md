@@ -18,7 +18,7 @@ inventory_hostname: localhost or machine short hostname
 
 ```yaml
  - hosts: all
-   gather_facts: "{{ inventory_hostname != 'localhost' }}"
+   gather_facts: inventory_hostname != 'localhost'
    roles:
      - pgkehle.hosts
 ```
