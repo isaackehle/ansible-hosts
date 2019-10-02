@@ -17,10 +17,17 @@ inventory_hostname: localhost or machine short hostname
 ## Examples
 
 ```yaml
- - hosts: all
-   gather_facts: inventory_hostname != 'localhost'
-   roles:
-     - pgkehle.hosts
+- hosts: all
+  gather_facts: inventory_hostname != 'localhost'
+  roles:
+    - pgkehle.hosts
+```
+
+## Linting
+
+```bash
+yamllint -c yamllint.yaml .
+ansible-lint .
 ```
 
 ## License
