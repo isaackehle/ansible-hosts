@@ -3,6 +3,7 @@
   command: date
   delegate_to: localhost
   register: date_cmd
+  when: true
 
 - name: Init block with date
   set_fact:

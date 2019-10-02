@@ -2,6 +2,7 @@
 - name: Register Date
   command: date
   register: date_cmd
+  when: true
 
 - name: Init block with date
   set_fact:
