@@ -1,6 +1,6 @@
 {
   "name": "ansible-hosts",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Update hosts file with a list of hosts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
