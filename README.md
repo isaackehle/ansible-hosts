@@ -2,7 +2,7 @@
 
 Update hosts file with a list of hosts
 
-Available on Ansible Galaxy: [pgkehle.hosts](https://galaxy.ansible.com/pgkehle/hosts)
+Available on Ansible Galaxy: [isaackehle.hosts](https://galaxy.ansible.com/isaackehle/hosts)
 
 This project rolls through all of the host variables, looking for those with ip_address set.
 When it is set, this assumes that the ip address is hard coded, thus not available in a DHCP server.
@@ -20,7 +20,7 @@ inventory_hostname: localhost or machine short hostname
 - hosts: all
   gather_facts: inventory_hostname != 'localhost'
   roles:
-    - pgkehle.hosts
+    - isaackehle.hosts
 ```
 
 ## Linting
@@ -36,5 +36,5 @@ MIT
 
 ## Author Information
 
-Paul Kehle  
-@pgkehle ([twitter](https://twitter.com/pgkehle), [github](https://github.com/pgkehle), [linkedin](https://www.linkedin.com/in/pgkehle))
+Isaac Kehle
+@isaackehle ([twitter](https://twitter.com/isaackehle), [github](https://github.com/isaackehle), [linkedin](https://www.linkedin.com/in/isaackehle))
